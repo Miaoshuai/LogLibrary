@@ -11,7 +11,7 @@
 #include <thread>
 #include <pthread.h>
 #include <assert.h>
-
+#include <stdio.h>
 namespace netlib
 {
     class Mutex
@@ -20,7 +20,6 @@ namespace netlib
             Mutex()
             {
                 pthread_mutex_init(&mutex_,NULL);
-
             }
             ~Mutex()
             {
@@ -29,12 +28,15 @@ namespace netlib
 
             void lock() //上锁
             {
-                pthread_mutex_lock(&mutex_);
+                int ret = pthread_mutex_lock(&mutex_);
+                printf("hello = %p\n",&mutex_);
+                assert(ret == 0);
             }
 
             void unlock()   //解锁
             {
-                pthread_mutex_unlock(&mutex_);
+                int ret = pthread_mutex_unlock(&mutex_);
+                assert(ret == 0);
             }
 
             pthread_mutex_t *getMutex() //获得互斥锁
