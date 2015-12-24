@@ -9,15 +9,18 @@
 #ifndef CONDTION_H_
 #define CONDTION_H_
 
-#include "mutex.h"
+//#include "mutex.h"
 #include <thread>
+#include <assert.h>
+#include <stdio.h>
+#include <pthread.h>
 
 namespace netlib
 {
     class Condtion
     {
         public:
-            Condtion(Mutex &mutex)
+            Condtion(pthread_mutex_t *mutex)
                 :mutex_(mutex)
             {
                 pthread_cond_init(&cond_,NULL);
@@ -29,20 +32,25 @@ namespace netlib
 
             void wait()     //条件等待
             {
-                pthread_cond_wait(&cond,mutex_.getMutex());   
+                int ret = pthread_cond_wait(&cond_,mutex_);   
+                assert(ret == 0);
             }
 
             void notify()   //唤醒
             {
-                pthread_cond_singnal(&cond_);
+                int ret = pthread_cond_signal(&cond_);
+                assert(ret == 0);
             }
 
             void notifyAll()    //唤醒全部
             {
-                pthread_cond_broadcast(&cond_);
+                int ret = pthread_cond_broadcast(&cond_);
+                assert(ret == 0);
             }
         private:
-            Mutex mutex_;
+            pthread_mutex_t *mutex_;
             pthread_cond_t cond_;
     };
 }
+
+#endif
