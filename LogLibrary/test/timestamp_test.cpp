@@ -8,15 +8,16 @@
 
 #include<iostream>
 #include<vector>
-#include<string>
+#include<string.h>
 #include "timestamp.h"
 #include <time.h>
 #include <sys/time.h>
 int main(int argc,char **argv)
 {
   struct tm time = netlib::Timestamp().now();
-  
-  printf("%d\n",time.tm_year);
+  netlib::Timestamp t;
+  char *p = t.toStringTime();
+  printf("%s\n%d\n",p,strlen(p));
 
   return 0;
 }
