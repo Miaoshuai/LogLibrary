@@ -9,9 +9,11 @@
 #define TIMESTAMP_H_
 
 #include <time.h>
+#include <string.h>
 #include <sys/time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 
 namespace netlib
 {
@@ -27,7 +29,7 @@ namespace netlib
             
             }
             
-            static struct tm now()  //获取当前tm格式的时间
+            static struct tm now(void)  //获取当前tm格式的时间
             {
                 struct timeval tv;
                 struct tm time;
@@ -37,11 +39,21 @@ namespace netlib
                 return time;
             }
 
-            static timeval getTime()
+            static timeval getTime(void)
             {
                 struct timeval tv;
                 gettimeofday(&tv,NULL);
                 return tv;
+            }
+
+            char *toStringTime(void) //将时间转化为字符串并返回
+            {
+                struct tm time;
+                bzero(str_,sizeof(str_));
+                time = now();
+                snprintf(str_,sizeof(str_),"%d-%d-%d %d:%d:%d ",time.tm_year,time.tm_mon,time.tm_mday,time.tm_hour,time.tm_min,time.tm_sec);
+                printf("%s",str_);
+                return str_;
             }
 
             static int getTimeDiff(timeval v1,timeval v2)    //获得俩时间的时间差,返回值为微妙
@@ -53,7 +65,7 @@ namespace netlib
             }
 
         private:
-            
+          char str_[100]; 
     };
 }
 
