@@ -14,13 +14,14 @@
 int main(int argc,char **argv)
 {
     netlib::AsynLog log(1000);
-    char s[100] = "hello\n";  
+    char s[100] = "hello\n";
+  log.setLevel(netlib::LogLevel::ALL);  
   for(int i = 0; i < 2; i++)
   {
 
-    log.append(s,strlen(s));
-    printf("aaa\n");
+    log.append(s,strlen(s),netlib::LogLevel::INFO);
   }
-  sleep(10);
+  log.stop();
+  sleep(1000);
   return 0;
 }
