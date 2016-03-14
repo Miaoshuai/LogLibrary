@@ -33,15 +33,18 @@ namespace netlib
             {
                 struct timeval tv;
                 struct tm time;
+                
                 gettimeofday(&tv,NULL);    //获取微妙，秒值
-                gmtime_r(&tv.tv_sec,&time);   //将s转换为tm格式
+                localtime_r(&tv.tv_sec,&time);   //将s转换为tm格式
                 time.tm_year += 1900;
+                time.tm_mon += 1;
                 return time;
             }
 
             static timeval getTime(void)
             {
                 struct timeval tv;
+
                 gettimeofday(&tv,NULL);
                 return tv;
             }
@@ -52,7 +55,6 @@ namespace netlib
                 bzero(str_,sizeof(str_));
                 time = now();
                 snprintf(str_,sizeof(str_),"%d-%d-%d %d:%d:%d ",time.tm_year,time.tm_mon,time.tm_mday,time.tm_hour,time.tm_min,time.tm_sec);
-                printf("%s",str_);
                 return str_;
             }
 
@@ -65,7 +67,7 @@ namespace netlib
             }
 
         private:
-          char str_[100]; 
+          char str_[200]; 
     };
 }
 
