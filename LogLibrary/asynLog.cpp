@@ -44,7 +44,7 @@ bool AsynLog::aboveLevel(LogLevel level)
 }
 
 
-void AsynLog::append(char *logline,int len,LogLevel level)
+void AsynLog::append(char *logline,LogLevel level)
 {
     if(aboveLevel(level))   //如果level超过所设等级
     {

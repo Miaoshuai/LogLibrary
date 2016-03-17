@@ -21,7 +21,7 @@ void func(void)
     log.setLevel(netlib::LogLevel::ALL);
     while(true)
     {
-        log.append(s,strlen(s),netlib::LogLevel::INFO);
+        log.append(s,netlib::LogLevel::INFO);
     }
 }
 

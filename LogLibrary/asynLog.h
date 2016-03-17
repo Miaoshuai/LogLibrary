@@ -34,7 +34,7 @@ namespace netlib
         public:
             AsynLog(int roolSize);
             ~AsynLog();
-            void append(char *logline,int len,LogLevel level); //添加日志行
+            void append(char *logline,LogLevel level); //添加日志行
             void setLevel(LogLevel level);                     //设置日志的水平
             void stop(void);                                   //关闭日志
         private:
