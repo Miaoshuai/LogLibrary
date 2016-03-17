@@ -26,7 +26,6 @@ AsynLog::AsynLog(int rollSize)
     nextBuffer_(new FixBuffer()),
     acceptThread_(std::bind(&AsynLog::threadFunc,this))
 {
-    printf("日志系统已开启\n");   
 }
 
 AsynLog::~AsynLog()
@@ -124,7 +123,7 @@ void AsynLog::threadFunc(void)
     std::unique_ptr<FixBuffer> newBuffer1(new FixBuffer);
     std::unique_ptr<FixBuffer> newBuffer2(new FixBuffer); 
     std::vector<std::unique_ptr<FixBuffer>> buffersToWrite;
-    LogFile output(1000);
+    LogFile output(rollSize_);
     buffersToWrite.reserve(16);
     while(running_)
     {

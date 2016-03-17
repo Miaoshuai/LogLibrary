@@ -14,12 +14,16 @@ namespace netlib
         public:
             LogFile(int rollSize);
             ~LogFile();
+            //往磁盘里添加消息
             void append(char *log,int len);
+            //滚动文件
+            void rollFile(int curLen);
 
         private:
-         int rollSize_;
+         int rollSize_;      //文件滚动大小
          int fd_;
-            
+         int fillSize_;      //当前文件填充大小
+         int fileNumbers_;    //已有文件数量   
     };
 }
 
